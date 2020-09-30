@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>COI 3.0 BGP Configurator</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container-fluid">
+      <div class="text-center">
+        <h2>BGP Configurator</h2>
+      </div>
+      <form method="POST" id="configuratorForm" autocomplete="off">
+        <!-- Service Information row 1 Start -->
+        <div class="row">
+          <div class="col">
+            <h3>Service Information</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-1">
+            <label for="serviceType">Service:</label><br />
+            <select name="serviceType" id="serviceType">
+              <option value="COI">COI</option>
+              <option value="WOI">WOI</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="mtu">IP MTU:</label><br />
+            <select name="mtu" id="mtu">
+              <option value="1500">Default(1500)</option>
+              <option value="9000">Jumbo(9000)</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="circuitId">Circuit ID:</label><br />
+            <input
+              required
+              name="circuitId"
+              id="circuitId"
+              placeholder="14.HMSI.000044..COXC."
+            />
+          </div>
+          <div class="col">
+            <label for="serviceId">Service ID:</label><br />
+            <input required name="serviceId" placeholder="27114401" />
+          </div>
+          <div class="col">
+            <label for="customerName">Customer Name:</label><br />
+            <input
+              required
+              name="customerName"
+              id="customerName"
+              placeholder="Cox Communications"
+            />
+          </div>
+          <div class="col">
+            <label for="customerId">Customer ID:</label><br />
+            <input
+              required
+              name="customerId"
+              id="customerId"
+              placeholder="270143769"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="v4InterfaceIp">V4 Gateway IP & Subnet:</label><br />
+            <input
+              required
+              name="interfaceIp"
+              id="interfaceIp"
+              placeholder="98.168.0.1/24"
+            />
+          </div>
+          <div class="col">
+            <label for="v6InterfaceIp">V6 Gateway IP & Subnet:</label><br />
+            <input
+              required
+              name="v6InterfaceIp"
+              id="v6InterfaceIp"
+              placeholder="2001:57a:b800::1e/127"
+            />
+          </div>
+          <div class="col">
+            <label for="sapLag">Lag Assignment:</label><br />
+            <select name="sapLag" id="sapLag">
+              <option value="311">311</option>
+              <option value="312">312</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="innerVlan">Inner VLAN:</label><br />
+            <input required name="innerVlan" id="innerVlan" placeholder="128" />
+          </div>
+
+          <div class="col">
+            <label for="coiQos">Select QOS:</label><br />
+            <select name="coiQos" id="coiQosSelector">
+              <option value="">Select One</option>
+              <option value="7750 1-Class 0.256M">0.256M</option>
+              <option value="7750 1-Class 0.512M">0.512M</option>
+              <option value="7750 1-Class 0.768M">0.768M</option>
+              <option value="7750 1-Class 1M">1M</option>
+              <option value="7750 1-Class 1.5M">1.5M</option>
+              <option value="7750 1-Class 2M">2M</option>
+              <option value="7750 1-Class 3M">3M</option>
+              <option value="7750 1-Class 4M">4M</option>
+              <option value="7750 1-Class 4.5M">4.5M</option>
+              <option value="7750 1-Class 5M">5M</option>
+              <option value="7750 1-Class 6M">6M</option>
+              <option value="7750 1-Class 7M">7M</option>
+              <option value="7750 1-Class 8M">8M</option>
+              <option value="7750 1-Class 9M">9M</option>
+              <option value="7750 1-Class 10M">10M</option>
+              <option value="7750 1-Class 15M">15M</option>
+              <option value="7750 1-Class 20M">20M</option>
+              <option value="7750 1-Class 25M">25M</option>
+              <option value="7750 1-Class 30M">30M</option>
+              <option value="7750 1-Class 40M">40M</option>
+              <option value="7750 1-Class 45M">45M</option>
+              <option value="7750 1-Class 50M">50M</option>
+              <option value="7750 1-Class 60M">60M</option>
+              <option value="7750 1-Class 70M">70M</option>
+              <option value="7750 1-Class 80M">80M</option>
+              <option value="7750 1-Class 90M">90M</option>
+              <option value="7750 1-Class 100M">100M</option>
+              <option value="7750 1-Class 150M">150M</option>
+              <option value="7750 1-Class 200M">200M</option>
+              <option value="7750 1-Class 250M">250M</option>
+              <option value="7750 1-Class 300M">300M</option>
+              <option value="7750 1-Class 350M">350M</option>
+              <option value="7750 1-Class 400M">400M</option>
+              <option value="7750 1-Class 450M">450M</option>
+              <option value="7750 1-Class 500M">500M</option>
+              <option value="7750 1-Class 550M">550M</option>
+              <option value="7750 1-Class 600M">600M</option>
+              <option value="7750 1-Class 650M">650M</option>
+              <option value="7750 1-Class 700M">700M</option>
+              <option value="7750 1-Class 750M">750M</option>
+              <option value="7750 1-Class 800M">800M</option>
+              <option value="7750 1-Class 850M">850M</option>
+              <option value="7750 1-Class 900M">900M</option>
+              <option value="7750 1-Class 950M">950M</option>
+              <option value="7750 1-Class 1G">1G</option>
+              <option value="7750 1-Class 2G">2G</option>
+              <option value="7750 1-Class 3G">3G</option>
+              <option value="7750 1-Class 4G">4G</option>
+              <option value="7750 1-Class 5G">5G</option>
+              <option value="7750 1-Class 6G">6G</option>
+              <option value="7750 1-Class 7G">7G</option>
+              <option value="7750 1-Class 8G">8G</option>
+              <option value="7750 1-Class 9G">9G</option>
+              <option value="7750 1-Class 10G">10G</option>
+              <option value="7750 1-Class 15G">15G</option>
+              <option value="7750 1-Class 20G">20G</option>
+              <option value="7750 1-Class 25G">25G</option>
+              <option value="7750 1-Class 30G">30G</option>
+              <option value="7750 1-Class 35G">35G</option>
+              <option value="7750 1-Class 40G">40G</option>
+              <option value="7750 1-Class 45G">45G</option>
+              <option value="7750 1-Class 50G">50G</option>
+              <option value="7750 1-Class 60G">60G</option>
+              <option value="7750 1-Class 70G">70G</option>
+              <option value="7750 1-Class 80G">80G</option>
+              <option value="7750 1-Class 90G">90G</option>
+              <option value="7750 1-Class 100G">100G</option>
+            </select>
+          </div>
+        </div>
+        <hr />
+        <!--BGP section-->
+        <div class="row">
+          <div class="col">
+            <h3>BGP Information</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="peerAs">BGP Peer AS:</label><br />
+            <input required name="peerAs" id="peerAs" placeholder="22778" />
+          </div>
+          <div class="col">
+            <label for="bgpFlavor">BGP Flavor:</label><br />
+            <select name="bgpFlavor" id="bgpFlavor">
+              <option value="LOOP">LOOP</option>
+              <option value="LINK">LINK</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="bgpKey">BGP Key:</label><br />
+            <input
+              required
+              name="bgpKey"
+              id="bgpKey"
+              placeholder="coxBgpPass"
+            />
+          </div>
+          <div class="col">
+            <label for="filterId">IP Filter ID:</label><br />
+            <input required name="filterId" id="filterId" placeholder="1515" />
+          </div>
+          <div class="col">
+            <label for="custBfd">Customer Order BFD?:</label><br />
+            <select name="custBfd" id="custBfd">
+              <option value="NO">NO</option>
+              <option value="YES">YES</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <p>Type of addresses to advertise</p>
+          <div class="col-1">
+            <label for="bgpFamilyV4">V4:</label>
+            <input
+              type="checkbox"
+              checked
+              name="bgpFamilyV4"
+              id="bgpFamilyV4"
+              value="YES"
+            />
+          </div>
+          <div class="col-1">
+            <label for="bgpFamilyV6">V6:</label>
+            <input
+              type="checkbox"
+              name="bgpFamilyV6"
+              id="bgpFamilyV6"
+              value="YES"
+            />
+          </div>
+          <div class="col">
+            <label for="v4PeerIp">V4 Peer IP:</label><br />
+            <input
+              required
+              name="v4PeerIp"
+              id="v4PeerIp"
+              placeholder="72.101.2.2"
+            />
+          </div>
+          <div class="col">
+            <label for="v6PeerIp">V6 Peer IP:</label><br />
+            <input
+              required
+              name="v6PeerIp"
+              id="v6PeerIp"
+              placeholder="2001:57a:b800::1f"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="v4PrefixList">V4 Addresses to advertise:</label><br />
+            <textarea
+              rows="4"
+              cols="60"
+              required
+              name="v4PrefixList"
+              id="v4PrefixList"
+              placeholder="Enter IP addresses as comma separated list. ex - 10.1.1.1/24, 10.2.2.2/27, etc.."
+            ></textarea>
+          </div>
+          <div class="col">
+            <label for="v6PrefixList">V6 Addresses to advertise:</label><br />
+            <textarea
+              rows="4"
+              cols="60"
+              required
+              name="v6PrefixList"
+              id="v6PrefixList"
+              placeholder="Enter IP addresses as comma separated list. ex - 2001:57a:ba00:8500::/56, 2001:57a:ba00:97A9::/64, etc.."
+            ></textarea>
+          </div>
+        </div>
+
+        <hr />
+        <button
+          type="submit"
+          name="submit"
+          id="submit"
+          class="btn btn-block btn-primary"
+        >
+          Submit Configuration <i class="fas fa-cloud-upload-alt fa-fw"></i>
+        </button>
+      </form>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

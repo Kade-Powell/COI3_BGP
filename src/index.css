@@ -1,0 +1,9 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+  background-image: url('bgp_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
