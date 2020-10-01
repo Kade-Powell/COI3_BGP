@@ -10,9 +10,9 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1150,
+    width: 1175,
     height: 800,
-    minWidth: 1150,
+    minWidth: 1175,
   });
 
   // and load the index.html of the app.
@@ -42,11 +42,3 @@ app.on('activate', () => {
 });
 
 // the rest of your app's specific main process
-
-// receive message from index.html
-ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg);
-
-  // send message to index.html
-  event.sender.send('asynchronous-reply', 'hello');
-});

@@ -18,7 +18,11 @@
       <div class="text-center">
         <h2>BGP Configurator</h2>
       </div>
-      <form method="POST" id="configuratorForm" autocomplete="off">
+      <form
+        id="configuratorForm"
+        autocomplete="off"
+        onsubmit=" return generateConfig()"
+      >
         <!-- Service Information row 1 Start -->
         <div class="row">
           <div class="col">
@@ -51,7 +55,12 @@
           </div>
           <div class="col">
             <label for="serviceId">Service ID:</label><br />
-            <input required name="serviceId" placeholder="27114401" />
+            <input
+              required
+              name="serviceId"
+              id="serviceId"
+              placeholder="27114401"
+            />
           </div>
           <div class="col">
             <label for="customerName">Customer Name:</label><br />
@@ -78,8 +87,8 @@
             <label for="v4InterfaceIp">V4 Gateway IP & Subnet:</label><br />
             <input
               required
-              name="interfaceIp"
-              id="interfaceIp"
+              name="v4InterfaceIp"
+              id="v4InterfaceIp"
               placeholder="98.168.0.1/24"
             />
           </div>
@@ -106,75 +115,75 @@
 
           <div class="col">
             <label for="coiQos">Select QOS:</label><br />
-            <select name="coiQos" id="coiQosSelector">
+            <select name="coiQos" id="coiQos">
               <option value="">Select One</option>
-              <option value="7750 1-Class 0.256M">0.256M</option>
-              <option value="7750 1-Class 0.512M">0.512M</option>
-              <option value="7750 1-Class 0.768M">0.768M</option>
-              <option value="7750 1-Class 1M">1M</option>
-              <option value="7750 1-Class 1.5M">1.5M</option>
-              <option value="7750 1-Class 2M">2M</option>
-              <option value="7750 1-Class 3M">3M</option>
-              <option value="7750 1-Class 4M">4M</option>
-              <option value="7750 1-Class 4.5M">4.5M</option>
-              <option value="7750 1-Class 5M">5M</option>
-              <option value="7750 1-Class 6M">6M</option>
-              <option value="7750 1-Class 7M">7M</option>
-              <option value="7750 1-Class 8M">8M</option>
-              <option value="7750 1-Class 9M">9M</option>
-              <option value="7750 1-Class 10M">10M</option>
-              <option value="7750 1-Class 15M">15M</option>
-              <option value="7750 1-Class 20M">20M</option>
-              <option value="7750 1-Class 25M">25M</option>
-              <option value="7750 1-Class 30M">30M</option>
-              <option value="7750 1-Class 40M">40M</option>
-              <option value="7750 1-Class 45M">45M</option>
-              <option value="7750 1-Class 50M">50M</option>
-              <option value="7750 1-Class 60M">60M</option>
-              <option value="7750 1-Class 70M">70M</option>
-              <option value="7750 1-Class 80M">80M</option>
-              <option value="7750 1-Class 90M">90M</option>
-              <option value="7750 1-Class 100M">100M</option>
-              <option value="7750 1-Class 150M">150M</option>
-              <option value="7750 1-Class 200M">200M</option>
-              <option value="7750 1-Class 250M">250M</option>
-              <option value="7750 1-Class 300M">300M</option>
-              <option value="7750 1-Class 350M">350M</option>
-              <option value="7750 1-Class 400M">400M</option>
-              <option value="7750 1-Class 450M">450M</option>
-              <option value="7750 1-Class 500M">500M</option>
-              <option value="7750 1-Class 550M">550M</option>
-              <option value="7750 1-Class 600M">600M</option>
-              <option value="7750 1-Class 650M">650M</option>
-              <option value="7750 1-Class 700M">700M</option>
-              <option value="7750 1-Class 750M">750M</option>
-              <option value="7750 1-Class 800M">800M</option>
-              <option value="7750 1-Class 850M">850M</option>
-              <option value="7750 1-Class 900M">900M</option>
-              <option value="7750 1-Class 950M">950M</option>
-              <option value="7750 1-Class 1G">1G</option>
-              <option value="7750 1-Class 2G">2G</option>
-              <option value="7750 1-Class 3G">3G</option>
-              <option value="7750 1-Class 4G">4G</option>
-              <option value="7750 1-Class 5G">5G</option>
-              <option value="7750 1-Class 6G">6G</option>
-              <option value="7750 1-Class 7G">7G</option>
-              <option value="7750 1-Class 8G">8G</option>
-              <option value="7750 1-Class 9G">9G</option>
-              <option value="7750 1-Class 10G">10G</option>
-              <option value="7750 1-Class 15G">15G</option>
-              <option value="7750 1-Class 20G">20G</option>
-              <option value="7750 1-Class 25G">25G</option>
-              <option value="7750 1-Class 30G">30G</option>
-              <option value="7750 1-Class 35G">35G</option>
-              <option value="7750 1-Class 40G">40G</option>
-              <option value="7750 1-Class 45G">45G</option>
-              <option value="7750 1-Class 50G">50G</option>
-              <option value="7750 1-Class 60G">60G</option>
-              <option value="7750 1-Class 70G">70G</option>
-              <option value="7750 1-Class 80G">80G</option>
-              <option value="7750 1-Class 90G">90G</option>
-              <option value="7750 1-Class 100G">100G</option>
+              <option value="25000">0.256M</option>
+              <option value="25001">0.512M</option>
+              <option value="25002">0.768M</option>
+              <option value="25003">1M</option>
+              <option value="25004">1.5M</option>
+              <option value="25005">2M</option>
+              <option value="25006">3M</option>
+              <option value="25007">4M</option>
+              <option value="25008">4.5M</option>
+              <option value="25009">5M</option>
+              <option value="25010">6M</option>
+              <option value="25011">7M</option>
+              <option value="25012">8M</option>
+              <option value="25013">9M</option>
+              <option value="25014">10M</option>
+              <option value="25015">15M</option>
+              <option value="25016">20M</option>
+              <option value="25017">25M</option>
+              <option value="25018">30M</option>
+              <option value="25019">40M</option>
+              <option value="25020">45M</option>
+              <option value="25021">50M</option>
+              <option value="25022">60M</option>
+              <option value="25023">70M</option>
+              <option value="25024">80M</option>
+              <option value="25025">90M</option>
+              <option value="25026">100M</option>
+              <option value="25027">150M</option>
+              <option value="25028">200M</option>
+              <option value="25029">250M</option>
+              <option value="25030">300M</option>
+              <option value="25031">350M</option>
+              <option value="25032">400M</option>
+              <option value="25033">450M</option>
+              <option value="25034">500M</option>
+              <option value="25035">550M</option>
+              <option value="25036">600M</option>
+              <option value="25037">650M</option>
+              <option value="25038">700M</option>
+              <option value="25039">750M</option>
+              <option value="25040">800M</option>
+              <option value="25041">850M</option>
+              <option value="25042">900M</option>
+              <option value="25043">950M</option>
+              <option value="25044">1G</option>
+              <option value="25045">2G</option>
+              <option value="25046">3G</option>
+              <option value="25047">4G</option>
+              <option value="25048">5G</option>
+              <option value="25049">6G</option>
+              <option value="25050">7G</option>
+              <option value="25051">8G</option>
+              <option value="25052">9G</option>
+              <option value="25053">10G</option>
+              <option value="25054">15G</option>
+              <option value="25055">20G</option>
+              <option value="25056">25G</option>
+              <option value="25057">30G</option>
+              <option value="25058">35G</option>
+              <option value="25059">40G</option>
+              <option value="25060">45G</option>
+              <option value="25061">50G</option>
+              <option value="25062">60G</option>
+              <option value="25063">70G</option>
+              <option value="25064">80G</option>
+              <option value="25065">90G</option>
+              <option value="25066">100G</option>
             </select>
           </div>
         </div>
@@ -211,10 +220,24 @@
             <input required name="filterId" id="filterId" placeholder="1515" />
           </div>
           <div class="col">
-            <label for="custBfd">Customer Order BFD?:</label><br />
+            <label for="custBfd">BFD:</label><br />
             <select name="custBfd" id="custBfd">
               <option value="NO">NO</option>
               <option value="YES">YES</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="bgpDefault">Default Route:</label><br />
+            <select name="bgpDefault" id="bgpDefault">
+              <option value="NO">NO</option>
+              <option value="YES">YES</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="exportFilter">Export FIlter:</label><br />
+            <select name="exportFilter" id="exportFilter">
+              <option value="LOOP">LOOP</option>
+              <option value="LINK">LINK</option>
             </select>
           </div>
         </div>
@@ -294,7 +317,57 @@
         </button>
       </form>
     </div>
+    <!-- Modal -->
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      id="modalToggle"
+      data-toggle="modal"
+      data-target="#exampleModal"
+      hidden
+    >
+      Launch modal
+    </button>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- JavaScript Bundle with Popper.js -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"
+      integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD"
+      crossorigin="anonymous"
+    ></script>
     <script src="renderer.js"></script>
   </body>
 </html>
