@@ -2,7 +2,7 @@
   "name": "bgp_configurator",
   "productName": "bgp_configurator",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Tools to create simple bgp configs",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -47,7 +47,8 @@
   "dependencies": {
     "bootstrap": "^5.0.0-alpha1",
     "electron-squirrel-startup": "^1.0.0",
-    "nunjucks": "^3.2.2"
+    "nunjucks": "^3.2.2",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.53",

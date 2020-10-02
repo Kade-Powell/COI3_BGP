@@ -18,11 +18,7 @@
       <div class="text-center">
         <h2>BGP Configurator</h2>
       </div>
-      <form
-        id="configuratorForm"
-        autocomplete="off"
-        onsubmit=" return generateConfig()"
-      >
+      <form id="configuratorForm" autocomplete="off" onsubmit=" return false">
         <!-- Service Information row 1 Start -->
         <div class="row">
           <div class="col">
@@ -30,7 +26,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-1">
+          <div class="col">
             <label for="serviceType">Service:</label><br />
             <select name="serviceType" id="serviceType">
               <option value="COI">COI</option>
@@ -101,6 +97,7 @@
               placeholder="2001:57a:b800::1e/127"
             />
           </div>
+          <div class="col"><!--Div for equal space--></div>
           <div class="col">
             <label for="sapLag">Lag Assignment:</label><br />
             <select name="sapLag" id="sapLag">
@@ -307,60 +304,81 @@
         </div>
 
         <hr />
-        <button
-          type="submit"
-          name="submit"
-          id="submit"
-          class="btn btn-block btn-primary"
-        >
-          Submit Configuration <i class="fas fa-cloud-upload-alt fa-fw"></i>
-        </button>
-      </form>
-    </div>
-    <!-- Modal -->
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-primary"
-      id="modalToggle"
-      data-toggle="modal"
-      data-target="#exampleModal"
-      hidden
-    >
-      Launch modal
-    </button>
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <div class="row text-center">
+          <div class="col">
             <button
-              type="button"
-              class="btn-close"
-              data-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
+              type="submit"
+              name="submit"
+              id="submit"
+              class="btn btn-block btn-primary"
             >
-              Close
+              Submit Configuration
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
+      <div class="row text-center">
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            id="modalToggle"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            hidden
+          >
+            View Config
+          </button>
+        </div>
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            id="clearInputs"
+            hidden
+          >
+            Clear Inputs
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <!-- Button trigger modal -->
 
     <!-- JavaScript Bundle with Popper.js -->
     <script
@@ -368,6 +386,9 @@
       integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD"
       crossorigin="anonymous"
     ></script>
+    <!--Nunjucks for front end use-->
+    <script src="../node_modules/nunjucks/index.js"></script>
+    <!--Custom actions-->
     <script src="renderer.js"></script>
   </body>
 </html>
