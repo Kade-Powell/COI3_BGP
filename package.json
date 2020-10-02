@@ -1,4 +1,8 @@
 {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kade-Powell/COI3_BGP.git"
+  },
   "name": "bgp_configurator",
   "productName": "bgp_configurator",
   "version": "1.0.0",

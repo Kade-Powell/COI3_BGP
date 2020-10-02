@@ -1,5 +1,5 @@
 {# COIN Service Config #}
-{% if BGP_FAMILY != "V4" %}
+{% if BGP_FAMILY != "V6" %}
 /configure filter match-list ip-prefix-list "COI-IPF-V4-{{ CIRCUIT_ID }}" create
 {% for PREFIX in CUSTV4_PREFIX_LIST %}
 /configure filter match-list ip-prefix-list "COI-IPF-V4-{{ CIRCUIT_ID }}" prefix {{ PREFIX }}
@@ -14,8 +14,7 @@
 /configure filter ip-filter {{ IP_FILTER_ID }} entry 10000 match src-ip ip-prefix-list "COI-IPF-V4-{{ CIRCUIT_ID }}"
 /configure filter ip-filter {{ IP_FILTER_ID }} entry 10000 action forward
 {% endif %}
-
-{% if BGP_FAMILY != "V6" %}
+{% if BGP_FAMILY != "V4" %}
 /configure filter match-list ipv6-prefix-list "COI-IPF-V6-{{ CIRCUIT_ID }}" create
 {% for PREFIX in CUSTV6_PREFIX_LIST %}
 /configure filter match-list ipv6-prefix-list "COI-IPF-V6-{{ CIRCUIT_ID }}" prefix {{ PREFIX }}
@@ -27,10 +26,9 @@
 /configure filter ipv6-filter {{ IP_FILTER_ID }} description "{{ CIRCUIT_ID }}"
 /configure filter ipv6-filter {{ IP_FILTER_ID }} embed-filter 50
 /configure filter ipv6-filter {{ IP_FILTER_ID }} entry 10000 create
-/configure filter ipv6-filter {{ IP_FILTER_ID }} entry 10000 match src-ip ipv6-prefix-list "COI-IPF-V6-{{ CIRCUIT_ID }}"
+/configure filter ipv6-filter {{ IP_FILTER_ID }} entry 10000 match src-ip ipv6-prefix-list "COI-IPF-V6-{{ CIRCUIT_ID}}"
 /configure filter ipv6-filter {{ IP_FILTER_ID }} entry 10000 action forward
 {% endif %}
-
 /configure router policy-options begin
 {% if BGP_FAMILY != "V6" %}
 {% for PREFIX in CUSTV4_PREFIX_LIST %}
@@ -52,10 +50,10 @@
 
 /configure router policy-options commit
 
-/configure service customer {{ CUSTOMER_ID }} create
-/configure service customer {{ CUSTOMER_ID }} description "{{ CUSTOMER_NAME }}"
+/configure service customer {{ CUSTOMER_NUM }} create
+/configure service customer {{ CUSTOMER_NUM }} description "{{ CUSTOMER_NAME }}"
 
-/configure service ies {{ SERVICE_ID }} customer {{ CUSTOMER_ID }} create
+/configure service ies {{ SERVICE_ID }} customer {{ CUSTOMER_NUM }} create
 /configure service ies {{ SERVICE_ID }} description "{{ CIRCUIT_ID }};{{ CUSTOMER_NAME }};{{ SERVICE_TYPE }}"
 /configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" create
 {% if BGP_FAMILY != "V6" %}
@@ -72,12 +70,12 @@
 /configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" ipv6 bfd 300 receive 300 multiplier 3
 {% endif %}
 {% endif %}
-/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:1000.{{ VLAN_INNER }} create
-/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:1000.{{ VLAN_INNER }} description "{{ CIRCUIT_ID }};{{ CUSTOMER_NAME }};{{ SERVICE_TYPE }}"
-/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:1000.{{ VLAN_INNER }} ingress qos 25090
-/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:1000.{{ VLAN_INNER }} ingress filter ip {{ IP_FILTER_ID }}
-/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:1000.{{ VLAN_INNER }} ingress filter ipv6 {{ IP_FILTER_ID }}
-/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:1000.{{ VLAN_INNER }} egress qos {{ COIN_SAP_EGRESS_QOS }}
+/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} create
+/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} description "{{ CIRCUIT_ID }};{{ CUSTOMER_NAME }};{{ SERVICE_TYPE }}"
+/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} ingress qos {{ COIN_SAP_INGRESS_FC }}
+/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} ingress filter ip {{ IP_FILTER_ID }}
+/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} ingress filter ipv6 {{ IP_FILTER_ID }}
+/configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} egress qos {{ COIN_SAP_EGRESS_QOS }}
 /configure service ies {{ SERVICE_ID }} no shutdown
 
 {% if BGP_FAMILY != "V6" %}
