@@ -338,7 +338,7 @@
               id="v6PeerIp"
               placeholder="2001:57a:b800::1f"
               pattern="((^|:)([0-9a-fA-F]{0,4})){1,8}$"
-              title="The Next hop should be a valid IP ex. 2001:578:30:6250::1003"
+              title="The V6 Peer should be a valid IP ex. 2001:578:30:6250::1003"
             />
           </div>
           <div class="col" hidden id="v6RouteCol">
@@ -348,6 +348,8 @@
               name="v6PrefixList"
               id="v6PrefixList"
               placeholder="Enter IP addresses as comma separated list. ex - 2001:57a:ba00:8500::/56, 2001:57a:ba00:97A9::/64, etc.."
+              pattern="((^|:)([0-9a-fA-F]{0,4})){1,8}$"
+              title="Should be IPv6 Addresses in a comma delimited list ex. '2001:57a:ba00:8500::/56, 2001:57a:ba00:97A9::/64'"
             />
           </div>
         </div>

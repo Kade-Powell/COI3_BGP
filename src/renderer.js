@@ -1,4 +1,7 @@
 const { ipcRenderer } = require('electron');
+const Address6 = require('ip-address').Address6;
+const Address4 = require('ip-address').Address4;
+
 //send version number to screen
 const appVersion = 'Version' + require('../package.json').version;
 document.getElementById('version-number').innerText = appVersion;
@@ -119,11 +122,15 @@ document
     //generate some CONSTs
 
     const CIRCUIT_MAC = wordwrap(`020${SERVICE_ID}`, 2, ':', true);
-
+    //v4 stuff
     let v4InterfaceIp = document.getElementById('v4InterfaceIp').value;
-    const [COI_INT_IP, COI_PREFIX_LEN] = v4InterfaceIp.split('/');
+    const COI_NET_V4 = new Address4(v4InterfaceIp).startAddress().address;
 
+    const [COI_INT_IP, COI_PREFIX_LEN] = v4InterfaceIp.split('/');
+    //v6 stuff
     let v6InterfaceIp = document.getElementById('v6InterfaceIp').value;
+    const COI_NET_V6 = new Address6(v6InterfaceIp).startAddress().address;
+    console.log(COI_NET_V6);
     const [COI_INT_IPV6, COI_PREFIX_LENV6] = v6InterfaceIp.split('/');
 
     //BGP Specific from form
@@ -197,6 +204,8 @@ document
       CUSTV4_PREFIX_LIST,
       CUSTV6_PREFIX_LIST,
       BGP_FAMILY,
+      COI_NET_V4,
+      COI_NET_V6,
     };
     //Send variables to index.js and wait for the templated return
 

@@ -82,6 +82,8 @@ function callTemplate(args) {
     CUSTV4_PREFIX_LIST: args.CUSTV4_PREFIX_LIST,
     CUSTV6_PREFIX_LIST: args.CUSTV6_PREFIX_LIST,
     BGP_FAMILY: args.BGP_FAMILY,
+    COI_NET_V4: args.COI_NET_V4,
+    COI_NET_V6: args.COI_NET_V6,
   });
 
   return config;
