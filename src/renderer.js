@@ -66,12 +66,16 @@ document
       //require
       document.getElementById('v4PeerIp').setAttribute('required', true);
       document.getElementById('v4PrefixList').setAttribute('required', true);
+      // require v4 gw
+      document.getElementById('v4InterfaceIp').setAttribute('required', true);
     } else {
       document.getElementById('v4PeerCol').setAttribute('hidden', true);
       document.getElementById('v4RouteCol').setAttribute('hidden', true);
       //remove require
       document.getElementById('v4PeerIp').removeAttribute('required');
       document.getElementById('v4PrefixList').removeAttribute('required');
+      //remove require v4 gw
+      document.getElementById('v4InterfaceIp').removeAttribute('required');
     }
   });
 
@@ -124,13 +128,17 @@ document
     const CIRCUIT_MAC = wordwrap(`020${SERVICE_ID}`, 2, ':', true);
     //v4 stuff
     let v4InterfaceIp = document.getElementById('v4InterfaceIp').value;
-    const COI_NET_V4 = new Address4(v4InterfaceIp).startAddress().address;
-
+    let COI_NET_V4;
+    if (v4InterfaceIp != '') {
+      COI_NET_V4 = new Address4(v4InterfaceIp).startAddress().address;
+    }
     const [COI_INT_IP, COI_PREFIX_LEN] = v4InterfaceIp.split('/');
     //v6 stuff
     let v6InterfaceIp = document.getElementById('v6InterfaceIp').value;
-    const COI_NET_V6 = new Address6(v6InterfaceIp).startAddress().address;
-    console.log(COI_NET_V6);
+    let COI_NET_V6;
+    if (v6InterfaceIp != '') {
+      COI_NET_V6 = new Address6(v6InterfaceIp).startAddress().address;
+    }
     const [COI_INT_IPV6, COI_PREFIX_LENV6] = v6InterfaceIp.split('/');
 
     //BGP Specific from form

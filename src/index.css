@@ -3,6 +3,10 @@ body {
     Arial, sans-serif;
   margin: auto;
   color: rgb(255, 255, 255);
+  background-image: url('bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .block-input {
   width: 100%;
@@ -13,4 +17,7 @@ body {
   margin-bottom: 1px;
   margin-right: 1px;
   border-radius: 100%;
+}
+input {
+  border-radius: 2px;
 }
