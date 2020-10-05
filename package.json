@@ -5,7 +5,7 @@
   },
   "name": "bgp_configurator",
   "productName": "bgp_configurator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tools to create simple bgp configs",
   "main": "src/index.js",
   "scripts": {

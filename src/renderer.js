@@ -1,4 +1,7 @@
 const { ipcRenderer } = require('electron');
+//send version number to screen
+const appVersion = 'Version' + require('../package.json').version;
+document.getElementById('version-number').innerText = appVersion;
 
 // create send dialog function
 async function sendDialog(str) {
