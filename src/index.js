@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const nunjucks = require('nunjucks');
 
@@ -76,7 +76,6 @@ function callTemplate(args) {
     BGP_KEY: args.BGP_KEY,
     IP_FILTER_ID: args.IP_FILTER_ID,
     CUST_BFD: args.CUST_BFD,
-    BGP_DEFAULT: args.BGP_DEFAULT,
     BGP_EXPORT_FILTER: args.BGP_EXPORT_FILTER,
     BGP_PEER_IP: args.BGP_PEER_IP,
     BGP_PEER_IPV6: args.BGP_PEER_IPV6,
@@ -95,5 +94,17 @@ ipcMain.handle('build-config', async (event, args) => {
   }
 
   const result = await callTemplate(args);
-  return result;
+  trimmedResult = result.replace(/^\s*[\r\n]/gm, '');
+  return trimmedResult;
+});
+
+ipcMain.handle('send-dialog', (event, str) => {
+  const options = {
+    type: 'question',
+    defaultId: 2,
+    title: 'From Astro Monkey',
+    message: str,
+  };
+  const response = dialog.showMessageBox(null, options);
+  console.log(response);
 });

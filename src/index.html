@@ -15,6 +15,15 @@
   </head>
   <body class="bg-dark">
     <div class="container-fluid">
+      <div class="d-flex flex-row-reverse">
+        <img
+          src="astromonkey.jpg"
+          class="logo"
+          alt="some text"
+          width="50"
+          height="50"
+        />
+      </div>
       <div class="text-center">
         <h2>BGP Configurator</h2>
       </div>
@@ -56,6 +65,8 @@
               name="serviceId"
               id="serviceId"
               placeholder="27114401"
+              pattern="^[0-9]{9}$"
+              title="Service ID should contain exactly 9 digits to format MAC address"
             />
           </div>
           <div class="col">
@@ -74,6 +85,8 @@
               name="customerId"
               id="customerId"
               placeholder="270143769"
+              pattern="^[0-9]*$"
+              title="Customer ID should be numbers only"
             />
           </div>
         </div>
@@ -86,15 +99,18 @@
               name="v4InterfaceIp"
               id="v4InterfaceIp"
               placeholder="98.168.0.1/24"
+              pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))$"
+              title="The gateway address should be in CIDR notation ex. 184.189.206.17/31 and can be up to a /26"
             />
           </div>
           <div class="col">
             <label for="v6InterfaceIp">V6 Gateway IP & Subnet:</label><br />
             <input
-              required
               name="v6InterfaceIp"
               id="v6InterfaceIp"
               placeholder="2001:57a:b800::1e/127"
+              pattern="^s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))$"
+              title="The gateway address should be in CIDR notation ex. 2001:578:30:6250::1002/127"
             />
           </div>
           <div class="col"><!--Div for equal space--></div>
@@ -107,7 +123,14 @@
           </div>
           <div class="col">
             <label for="innerVlan">Inner VLAN:</label><br />
-            <input required name="innerVlan" id="innerVlan" placeholder="128" />
+            <input
+              required
+              name="innerVlan"
+              id="innerVlan"
+              placeholder="128"
+              pattern="^[0-9]{1,4}$"
+              title="Inner VLAN should be contain numbers only"
+            />
           </div>
 
           <div class="col">
@@ -194,7 +217,14 @@
         <div class="row">
           <div class="col">
             <label for="peerAs">BGP Peer AS:</label><br />
-            <input required name="peerAs" id="peerAs" placeholder="22778" />
+            <input
+              required
+              name="peerAs"
+              id="peerAs"
+              placeholder="22778"
+              pattern="^[0-9]*$"
+              title="BGP Peer AS should be contain numbers only"
+            />
           </div>
           <div class="col">
             <label for="bgpFlavor">BGP Flavor:</label><br />
@@ -214,7 +244,14 @@
           </div>
           <div class="col">
             <label for="filterId">IP Filter ID:</label><br />
-            <input required name="filterId" id="filterId" placeholder="1515" />
+            <input
+              required
+              name="filterId"
+              id="filterId"
+              placeholder="1515"
+              pattern="^[0-9]*$"
+              title="IP Filter ID should contain numbers only"
+            />
           </div>
           <div class="col">
             <label for="custBfd">BFD:</label><br />
@@ -224,17 +261,37 @@
             </select>
           </div>
           <div class="col">
-            <label for="bgpDefault">Default Route:</label><br />
-            <select name="bgpDefault" id="bgpDefault">
-              <option value="NO">NO</option>
-              <option value="YES">YES</option>
-            </select>
-          </div>
-          <div class="col">
             <label for="exportFilter">Export FIlter:</label><br />
             <select name="exportFilter" id="exportFilter">
-              <option value="LOOP">LOOP</option>
-              <option value="LINK">LINK</option>
+              <option
+                value="'COI-EXPORT-ADD-DEFAULT' 'COI-EXPORT-FILTER-NO-MORE-ROUTES'"
+              >
+                Default Only
+              </option>
+              <option value="'COI-EXPORT-FILTER-22773'">Local</option>
+              <option
+                value="'COI-EXPORT-ADD-DEFAULT' 'COI-EXPORT-FILTER-22773'"
+              >
+                Local + Default
+              </option>
+              <option value="'COI-EXPORT-FILTER-22773PLUS1'">Local + 1</option>
+              <option
+                value="'COI-EXPORT-ADD-DEFAULT' 'COI-EXPORT-FILTER-22773PLUS1'"
+              >
+                Local + 1 + Default
+              </option>
+              <option value="'COI-EXPORT-FILTER-COXCUST'">
+                Local + 1 (CB Cust Only)
+              </option>
+              <option
+                value="'COI-EXPORT-ADD-DEFAULT' 'COI-EXPORT-FILTER-COXCUST'"
+              >
+                Local + 1 (CB Cust Only) + Default
+              </option>
+              <option value="'COI-EXPORT-FILTER-FULL'">Full</option>
+              <option value="'COI-EXPORT-ADD-DEFAULT' 'COI-EXPORT-FILTER-FULL'">
+                Full + Default
+              </option>
             </select>
           </div>
         </div>
@@ -242,64 +299,55 @@
           <p>Type of addresses to advertise</p>
           <div class="col-1">
             <label for="bgpFamilyV4">V4:</label>
-            <input
-              type="checkbox"
-              checked
-              name="bgpFamilyV4"
-              id="bgpFamilyV4"
-              value="YES"
-            />
+            <input type="checkbox" name="bgpFamilyV4" id="bgpFamilyV4" />
           </div>
           <div class="col-1">
             <label for="bgpFamilyV6">V6:</label>
-            <input
-              type="checkbox"
-              name="bgpFamilyV6"
-              id="bgpFamilyV6"
-              value="YES"
-            />
+            <input type="checkbox" name="bgpFamilyV6" id="bgpFamilyV6" />
           </div>
-          <div class="col">
+        </div>
+        <div class="row">
+          <div class="col-2" hidden id="v4PeerCol">
             <label for="v4PeerIp">V4 Peer IP:</label><br />
             <input
-              required
               name="v4PeerIp"
               id="v4PeerIp"
               placeholder="72.101.2.2"
+              pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+              title="The V4 Peer IP should be a valid IP ex. 98.168.72.2"
             />
           </div>
-          <div class="col">
-            <label for="v6PeerIp">V6 Peer IP:</label><br />
+          <div class="col" hidden id="v4RouteCol">
+            <label for="v4PrefixList">V4 Addresses to advertise:</label><br />
             <input
-              required
-              name="v6PeerIp"
-              id="v6PeerIp"
-              placeholder="2001:57a:b800::1f"
+              class="block-input"
+              name="v4PrefixList"
+              id="v4PrefixList"
+              placeholder="Enter IP addresses as comma separated list. ex - 10.1.1.1/24, 10.2.2.2/27, etc.."
+              pattern="^(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(3[0-1]|[1-2][0-9]|[1-9]))(, ?)?)+$"
+              title="The V4 Prefix list must be either a single prefix or a comma delimited list ex '70.1.1.1/24, 100.1.1.2/26"
             />
           </div>
         </div>
         <div class="row">
-          <div class="col">
-            <label for="v4PrefixList">V4 Addresses to advertise:</label><br />
-            <textarea
-              rows="4"
-              cols="60"
-              required
-              name="v4PrefixList"
-              id="v4PrefixList"
-              placeholder="Enter IP addresses as comma separated list. ex - 10.1.1.1/24, 10.2.2.2/27, etc.."
-            ></textarea>
+          <div class="col-2" hidden id="v6PeerCol">
+            <label for="v6PeerIp">V6 Peer IP:</label><br />
+            <input
+              name="v6PeerIp"
+              id="v6PeerIp"
+              placeholder="2001:57a:b800::1f"
+              pattern="((^|:)([0-9a-fA-F]{0,4})){1,8}$"
+              title="The Next hop should be a valid IP ex. 2001:578:30:6250::1003"
+            />
           </div>
-          <div class="col">
+          <div class="col" hidden id="v6RouteCol">
             <label for="v6PrefixList">V6 Addresses to advertise:</label><br />
-            <textarea
-              rows="4"
-              cols="60"
-              required
+            <input
+              class="block-input"
               name="v6PrefixList"
               id="v6PrefixList"
               placeholder="Enter IP addresses as comma separated list. ex - 2001:57a:ba00:8500::/56, 2001:57a:ba00:97A9::/64, etc.."
-            ></textarea>
+            />
           </div>
         </div>
 
@@ -317,11 +365,12 @@
           </div>
         </div>
       </form>
+
       <div class="row text-center">
         <div class="col">
           <button
             type="button"
-            class="btn btn-outline-success"
+            class="btn btn-block btn-outline-success"
             id="modalToggle"
             data-toggle="modal"
             data-target="#exampleModal"
@@ -333,7 +382,7 @@
         <div class="col">
           <button
             type="button"
-            class="btn btn-outline-danger"
+            class="btn btn-block btn-outline-danger"
             id="clearInputs"
             hidden
           >
@@ -352,25 +401,34 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+                BGP config
+              </h5>
               <button
                 type="button"
-                class="btn-close"
+                class="btn-danger btn-close"
                 data-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body text-primary" id="modal-body"></div>
+            <div class="modal-body text-primary">
+              <button
+                type="button"
+                name="copy"
+                id="copy-entire-config"
+                class="btn btn-block btn-outline-primary"
+              >
+                Copy Config
+              </button>
+              <div id="config-container"></div>
+            </div>
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                class="btn btn-block btn-outline-danger"
                 data-dismiss="modal"
               >
                 Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
               </button>
             </div>
           </div>

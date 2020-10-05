@@ -4,6 +4,13 @@ body {
   margin: auto;
   color: rgb(255, 255, 255);
 }
-/*background-image: url('bgp_background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;*/
+.block-input {
+  width: 100%;
+}
+
+.logo {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-right: 1px;
+  border-radius: 100%;
+}

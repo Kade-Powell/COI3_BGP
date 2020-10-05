@@ -40,19 +40,15 @@
 /configure router policy-options prefix-list "COI-PL-{{ CIRCUIT_ID }}" prefix {{ PREFIX }} through 128
 {% endfor %}
 {% endif %}
-
 /configure router policy-options as-path-group "COI-APG-{{ CIRCUIT_ID }}" entry 10 expression "^{{ BGP_PEER_AS }}+$"
 /configure router policy-options policy-statement "COI-PS-{{ CIRCUIT_ID }}" entry 10 from policy-variables name "@custPrefixList@" value "COI-PL-{{ CIRCUIT_ID }}
 /configure router policy-options policy-statement "COI-PS-{{ CIRCUIT_ID }}" entry 10 from policy-variables name "@custASpathGroup@" value "COI-APG-{{ CIRCUIT_ID }}
 /configure router policy-options policy-statement "COI-PS-{{ CIRCUIT_ID }}" entry 10 from policy "COI-IMPORT-FILTER-COMMON"
 /configure router policy-options policy-statement "COI-PS-{{ CIRCUIT_ID }}" entry 10 action accept
 /configure router policy-options policy-statement "COI-PS-{{ CIRCUIT_ID }}" default-action drop
-
 /configure router policy-options commit
-
 /configure service customer {{ CUSTOMER_NUM }} create
 /configure service customer {{ CUSTOMER_NUM }} description "{{ CUSTOMER_NAME }}"
-
 /configure service ies {{ SERVICE_ID }} customer {{ CUSTOMER_NUM }} create
 /configure service ies {{ SERVICE_ID }} description "{{ CIRCUIT_ID }};{{ CUSTOMER_NAME }};{{ SERVICE_TYPE }}"
 /configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" create
@@ -77,32 +73,23 @@
 /configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} ingress filter ipv6 {{ IP_FILTER_ID }}
 /configure service ies {{ SERVICE_ID }} interface "C-{{ CIRCUIT_ID }}" sap {{ SAP_LAG }}:{{ VLAN_OUTER }}.{{ VLAN_INNER }} egress qos {{ COIN_SAP_EGRESS_QOS }}
 /configure service ies {{ SERVICE_ID }} no shutdown
-
 {% if BGP_FAMILY != "V6" %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} description "{{ CIRCUIT_ID }}"
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} authentication-key {{ BGP_KEY }}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} import "COI-PS-{{ CIRCUIT_ID }}"
-{% if BGP_DEFAULT == "YES" %}
-/configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} export "COI-EXPORT-ADD-DEFAULT" "{{ BGP_EXPORT_FILTER }}"
-{% else %}
-/configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} export "{{ BGP_EXPORT_FILTER }}"
+/configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} export {{ BGP_EXPORT_FILTER }}
 {% endif %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} peer-as {{ BGP_PEER_AS }}
 {% if CUST_BFD == "YES" and BGP_FLAVOR == "LINK" %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V4" neighbor {{ BGP_PEER_IP }} bfd-enable
 {% endif %}
-{% endif %}
 {% if BGP_FAMILY != "V4" %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IPV6 }} description "{{ CIRCUIT_ID }}"
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IPV6 }} authentication-key {{ BGP_KEY }}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IPV6 }} import "COI-PS-{{ CIRCUIT_ID }}"
-{% if BGP_DEFAULT == "YES" %}
-/configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IPV6 }} export "COI-EXPORT-ADD-DEFAULT" "{{ BGP_EXPORT_FILTER }}"
-{% else %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IPV6 }} export {{ BGP_EXPORT_FILTER }}
 {% endif %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IPV6 }} peer-as {{ BGP_PEER_AS }}
 {% if CUST_BFD == "YES" and BGP_FLAVOR == "LINK" %}
 /configure router bgp group "COI-CUSTOMER-{{ BGP_FLAVOR }}-V6" neighbor {{ BGP_PEER_IP }} bfd-enable
-{% endif %}
 {% endif %}
