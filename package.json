@@ -50,12 +50,12 @@
   },
   "dependencies": {
     "bootstrap": "^5.0.0-alpha1",
+    "electron-is-dev": "^1.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^4.3.5",
     "ip-address": "^7.0.1",
     "ipaddr.js": "^1.1.0",
-    "nunjucks": "^3.2.2",
-    "update-electron-app": "^2.0.1"
+    "nunjucks": "^3.2.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.53",

@@ -1,4 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const updater = require('./updater');
+const isDev = require('electron-is-dev');
 const path = require('path');
 const nunjucks = require('nunjucks');
 
@@ -7,8 +9,8 @@ nunjucks.configure(path.resolve(__dirname, './templates'), {
   autoescape: true,
 });
 
-//auto updating feature
-require('update-electron-app')();
+// The current version of your app.
+const APP_VERSION = require('../package.json').version;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -18,7 +20,7 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  let mainWindow = new BrowserWindow({
     width: 1175,
     height: 800,
     minWidth: 1175,
@@ -29,6 +31,32 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  if (isDev) {
+    // Open the DevTools. No update call in dev !!!
+    mainWindow.webContents.openDevTools();
+  } else {
+    // Handle squirrel event. Avoid calling for updates when install
+    if (require('electron-squirrel-startup')) {
+      app.quit();
+      process.exit(0);
+    }
+
+    if (process.platform === 'win32') {
+      var cmd = process.argv[1];
+      if (cmd === '--squirrel-firstrun') {
+        return;
+      }
+    }
+
+    // Check for updates !!!!!
+    mainWindow.webContents.once('did-frame-finish-load', function (event) {
+      updater.init();
+    });
+  }
+
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 };
 
 // This method will be called when Electron has finished
